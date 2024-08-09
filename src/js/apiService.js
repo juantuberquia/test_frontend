@@ -1,18 +1,20 @@
 
-export default function fetchData() {
 
-  // try {
-  //   const response = fetch("data.json")
-  //     .then(data => data.json())
-  //     .then(response => console.log(response))
-  //   // const data =  response.json();
+fetch("./src/data.json")
+  .then(data => data.json())
+  .then(resp => showInfo(resp))
 
-  //   // console.log("hahaa", data)
+const showInfo = (resp) => {
+  try {
+    const source = document.getElementById('template-handlebars').innerHTML;
+    const partialSource = document.getElementById('character-details-partial').innerHTML;
+    Handlebars.registerPartial('character-details-partial', partialSource);
 
-  //   return data;
+    const template = Handlebars.compile(source);
+    const html = template(resp);
+    document.getElementById('content').innerHTML = html;
+  } catch (error) {
+    console.error('Error rendering template:', error);
+  }
 
-  // } catch (error) {
-  //   console.error('Error fetching:', error);
-
-  // }
 }
