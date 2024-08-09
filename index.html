@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.min.js"></script>
+  <script src="./src/js/apiService.js"></script>
+  <script src="./src/js/menu.js"></script>
+  <link href="https://fonts.cdnfonts.com/css/helvetica-neue-5" rel="stylesheet">
+
+  <link rel="stylesheet" type="text/css" href="./src/less/styles.css" />
+
+  <title> Handlebars </title>
+</head>
+
+<body>
+
+  <div id="content" class="container_landing"></div>
+
+  <script id="template-handlebars" type="text/x-handlebars-template">
+    {{> character-details-partial}}
+    <div class="wrapped_label_navbar">
+      <label class="label_navBar">Tendencias: </label>
+      <div class="container_items">
+        {{#each hotTopics}}
+        <a href="{{url}}" target="{{target}}"  class="items_navbar">{{title}}</a>
+      {{/each}}
+      </div>
+
+      <div class="wrapped_social">
+        {{#each social.[0].items}}
+          <a href="{{href}}">
+            <img src="{{urlIcon}}" alt="">
+          </a>
+        {{/each}}
+      </div>
+    
+    </div>
+    <div class="wrapped_page_lead">
+      {{#each pageLead}}
+      <img src="{{image.src}}" alt="{{alt}}" style="width: 100%;">
+      {{/each}}
+    </div>
+    <div class="wrapped_breadcrumb">
+      {{#each breadcrumbs}}
+      <a href="{{href}}"> {{body}}</a>
+      {{/each}}
+    </div>
+    <div class="wrapped_banner_description">
+      <div class="wrapped_banner">
+        {{#each lead}}
+        <img src="{{image.src}}" style="width: 100%;" alt="{{alt}}">
+        {{/each}}
+      </div>
+
+      <div class="wrapped_description">
+        <h2>{{headline}}</h2>
+        <p>{{subHeadline}}</p>
+
+        {{#each audioPlayer}}
+        <audio controls>
+          <source src="{{audioUrl}}" type="audio/mpeg">
+        </audio>
+      {{/each}}
+
+      <div class="wrapped_share">
+        <p>Compartir:</p>
+        {{#each actions.[0].items}}
+            <a onclick="window.open('{{shareHref}}')" target="_blank">
+              <img src="{{urlIcon}}" >
+            </a>            
+        {{/each}}
+      </div>
+      </div>
+    </div>
+  </script>
+
+  <!-- partial -->
+  <script id="character-details-partial" type="text/x-handlebars-template">
+    <div class="wrapped_menu_logo">
+      <div class="hamburger-menu">
+        <button id="menu-toggle" class="icon_menu">☰</button>
+        <nav id="menu" class="nav_menu">
+          <ul>
+            {{#each navigation.[0].items}}
+              <li><a href="{{href}}" class="{{#if isCurrent}}current{{/if}}">{{text}}</a></li>
+            {{/each}}
+          </ul>
+        </nav>
+      </div>
+      <img src="{{logo.[0].image.src}}" alt="logo">
+    </div>
+ 
+</script>
+</body>
+
+</html>
